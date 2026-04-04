@@ -13,17 +13,16 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
   <style>
     :root {
-      --bg: #efefef;
-      --header: #262626;
-      --header-border: #3b3b3b;
-      --panel: #ffffff;
-      --panel-soft: #f7f7f7;
-      --line: #d4d4d4;
-      --text: #121212;
-      --muted: #6d6d6d;
-      --accent: #d71920;
-      --accent-dark: #b01117;
-      --shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+      --bg: #f3efe8;
+      --paper: #fffdf8;
+      --paper-soft: #f8f3ea;
+      --ink: #171310;
+      --muted: #6f655b;
+      --line: #ded3c4;
+      --accent: #c9171f;
+      --accent-dark: #981219;
+      --shadow: 0 18px 40px rgba(65, 41, 14, 0.08);
+      --radius: 28px;
     }
 
     * {
@@ -38,309 +37,353 @@
       margin: 0;
       min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: var(--bg);
+      color: var(--ink);
+      background: linear-gradient(180deg, #ece4d9 0, #f3efe8 180px, #f3efe8 100%);
     }
 
     a {
       color: inherit;
     }
 
-    .topbar {
-      background: var(--header);
-      border-bottom: 4px solid #565656;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
-      color: #ffffff;
+    .page {
+      width: min(1280px, calc(100% - 28px));
+      margin: 18px auto 40px;
     }
 
-    .topbar-inner {
-      width: min(1240px, calc(100% - 24px));
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      min-height: 102px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .brand-mark {
-      width: 76px;
-      height: 76px;
-      display: block;
-      background: #ffffff;
-      border: 3px solid #ffffff;
-      overflow: hidden;
-    }
-
-    .brand-mark img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .brand-copy strong {
-      display: block;
-      font-size: 1.55rem;
-      letter-spacing: 0.03em;
-    }
-
-    .brand-copy span {
-      display: block;
-      margin-top: 4px;
-      color: #cbcbcb;
-      font-size: 0.94rem;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav a {
-      padding: 0 18px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      border-left: 1px solid var(--header-border);
-    }
-
-    .nav a:first-child {
-      border-left: 0;
-    }
-
-    .shell {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 20px 0 56px;
-    }
-
-    .notice {
-      margin: 0 0 16px;
-      text-align: center;
-      color: var(--accent);
-      font-size: 0.98rem;
-    }
-
-    .feature-strip {
+    .masthead {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-      padding: 14px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-    }
-
-    .feature-item {
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      background: #111111;
-      border: 1px solid #d0d0d0;
-    }
-
-    .feature-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hero,
-    .content-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.8fr) minmax(290px, 0.95fr);
+      grid-template-columns: 360px 1fr;
       gap: 18px;
-      align-items: start;
+      align-items: stretch;
     }
 
+    .brand-panel,
+    .hero-panel,
     .panel {
-      background: var(--panel);
+      background: var(--paper);
       border: 1px solid var(--line);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
 
-    .intro {
-      padding: 16px;
+    .brand-panel {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
     }
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .lede {
-      margin: 0;
-      max-width: 62ch;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .channel-band {
+    .brand-lockup {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-top: 18px;
-      padding: 14px;
-      background: var(--panel-soft);
-      border: 1px solid var(--line);
     }
 
-    .channel-band img {
-      width: 72px;
-      height: 72px;
+    .brand-logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      flex: 0 0 auto;
+      background: #ffffff;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border: 1px solid var(--line);
+      display: block;
     }
 
-    .channel-meta {
-      display: grid;
-      gap: 4px;
+    .brand-text strong {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1;
     }
 
-    .channel-meta strong {
-      font-size: 1.16rem;
-    }
-
-    .channel-meta span {
+    .brand-text span {
+      display: block;
+      margin-top: 8px;
       color: var(--muted);
-      word-break: break-all;
+      line-height: 1.45;
     }
 
-    .channel-links {
+    .brand-note {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+
+    .brand-links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 16px;
     }
 
-    .button {
+    .pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 42px;
       padding: 0 18px;
-      border: 1px solid var(--accent-dark);
-      background: var(--accent);
-      color: #ffffff;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper-soft);
       text-decoration: none;
       font-weight: 700;
-      transition: transform 160ms ease, background 160ms ease;
     }
 
-    .button:hover {
-      transform: translateY(-2px);
-      background: var(--accent-dark);
+    .pill.primary {
+      background: var(--accent);
+      border-color: var(--accent-dark);
+      color: #ffffff;
     }
 
-    .latest-card {
+    .hero-panel {
+      padding: 22px;
       display: grid;
-      grid-template-rows: 280px 1fr;
+      grid-template-columns: minmax(0, 1.1fr) 300px;
+      gap: 20px;
+      align-items: stretch;
     }
 
-    .thumb-wrap {
-      background: #d8d8d8;
+    .hero-copy {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      max-width: 10ch;
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 1rem;
+    }
+
+    .channel-chip {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 22px;
+      background: var(--paper-soft);
+      border: 1px solid var(--line);
+    }
+
+    .channel-chip img {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+
+    .channel-chip strong {
+      display: block;
+      font-size: 1.06rem;
+    }
+
+    .channel-chip span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 12px;
+      grid-template-rows: 1fr auto;
+    }
+
+    .latest-poster {
       overflow: hidden;
-      border-bottom: 1px solid var(--line);
+      border-radius: 22px;
+      background: #111111;
+      min-height: 320px;
     }
 
-    .thumb-wrap img {
+    .latest-poster img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .card-body,
-    .section {
+    .latest-meta {
       padding: 16px;
+      border-radius: 22px;
+      background: var(--paper-soft);
+      border: 1px solid var(--line);
     }
 
-    .kicker {
-      display: inline-block;
-      color: var(--accent);
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .latest-meta h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.18;
+    }
+
+    .video-meta,
+    .status-line,
+    .footnote,
+    .module-copy {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) 320px;
+      gap: 18px;
+      margin-top: 18px;
+      align-items: start;
+    }
+
+    .rail {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .module-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .module-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .recent-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .recent-tile {
+      display: grid;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .recent-tile img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #111111;
+    }
+
+    .recent-tile span {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: var(--ink);
       font-weight: 700;
     }
 
-    .video-title {
-      margin: 10px 0 0;
-      font-size: clamp(1.45rem, 2.5vw, 2rem);
-      line-height: 1.14;
-    }
-
-    .status-line,
-    .video-meta,
-    .footnote {
+    .recent-stats {
+      display: block;
+      margin-top: -2px;
+      font-size: 0.8rem;
+      line-height: 1.35;
       color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .section {
-      margin-top: 18px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(1.4rem, 2.8vw, 1.9rem);
       font-weight: 400;
-      text-transform: uppercase;
     }
 
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
+    .center-stack {
+      display: grid;
+      gap: 18px;
     }
 
-    .video-frame {
+    .feature-module {
+      display: grid;
+      gap: 16px;
+    }
+
+    .feature-canvas {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .feature-frame {
       background: #111111;
-      padding: 14px;
-      border: 1px solid #232323;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #2c2c2c;
     }
 
-    .video-frame img {
+    .feature-frame img {
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
     }
 
-    .metrics,
+    .story-card {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 22px;
+      background: var(--paper-soft);
+      border: 1px solid var(--line);
+    }
+
+    .story-card strong {
+      display: block;
+      font-size: 1.02rem;
+      color: var(--accent);
+    }
+
+    .story-card span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .metrics-grid,
     .channel-stats {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 18px;
     }
 
     .metric {
       padding: 16px;
-      background: var(--panel-soft);
+      border-radius: 22px;
+      background: var(--paper-soft);
       border: 1px solid var(--line);
       transform: translateY(16px);
       opacity: 0;
@@ -360,18 +403,27 @@
     }
 
     .metric-label {
+      display: block;
       font-size: 0.8rem;
       color: var(--muted);
-      letter-spacing: 0.08em;
       text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .metric-value {
       display: block;
       margin-top: 12px;
-      font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+      font-size: clamp(1.55rem, 2.8vw, 2.25rem);
       line-height: 1;
-      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #channelViewsMetric {
+      font-size: clamp(1.15rem, 1.9vw, 1.8rem);
+      letter-spacing: -0.03em;
     }
 
     .odometer.odometer-auto-theme,
@@ -380,44 +432,71 @@
       line-height: 1;
     }
 
-    .sidebar-list {
+    .channels-grid {
       display: grid;
-      gap: 10px;
-      margin-top: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
     }
 
-    .sidebar-item {
-      padding: 12px 14px;
-      background: var(--panel-soft);
+    .channel-card {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+      border-radius: 22px;
+      background: var(--paper-soft);
       border: 1px solid var(--line);
+      text-decoration: none;
     }
 
-    .sidebar-item strong {
+    .channel-card.is-disabled {
+      opacity: 0.72;
+      cursor: default;
+    }
+
+    .channel-card img,
+    .channel-card .channel-card-fallback {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #ffffff;
       display: block;
+    }
+
+    .channel-card .channel-card-fallback {
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      font-weight: 700;
       color: var(--accent);
-      font-size: 0.98rem;
     }
 
-    .sidebar-item span {
+    .channel-card-text {
+      min-width: 0;
+    }
+
+    .channel-card strong {
       display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.45;
-      word-break: break-word;
+      font-size: 1rem;
+      line-height: 1.35;
     }
 
-    .footnote {
-      margin-top: 14px;
-      font-size: 0.95rem;
+    .channel-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.35;
     }
 
     .copyright {
-      margin-top: 18px;
+      margin-top: 20px;
       text-align: center;
       color: var(--muted);
       font-size: 0.95rem;
-      letter-spacing: 0.04em;
     }
 
     @keyframes rise {
@@ -427,112 +506,85 @@
       }
     }
 
-    @media (max-width: 980px) {
-      .hero,
-      .content-grid,
-      .metrics,
-      .channel-stats,
-      .feature-strip {
+    @media (max-width: 1100px) {
+      .masthead,
+      .hero-panel,
+      .layout,
+      .feature-canvas,
+      .channels-grid {
         grid-template-columns: 1fr;
       }
 
-      .topbar-inner {
-        min-height: 0;
-        padding: 16px 0;
-        flex-direction: column;
-        align-items: start;
-      }
-
-      .nav a {
-        padding: 8px 14px 8px 0;
-        border-left: 0;
-      }
-
-      .latest-card {
-        grid-template-rows: 220px 1fr;
+      .hero-side {
+        grid-template-rows: none;
       }
     }
 
-    @media (max-width: 640px) {
-      .shell {
-        width: min(100% - 20px, 1180px);
-        padding-bottom: 32px;
+    @media (max-width: 780px) {
+      .page {
+        width: min(100% - 18px, 1280px);
       }
 
-      .brand-mark {
-        width: 58px;
-        height: 58px;
+      .metrics-grid,
+      .channel-stats {
+        grid-template-columns: 1fr;
       }
 
-      .card-body,
-      .intro,
-      .section {
-        padding: 14px;
-      }
-
-      .channel-band {
+      .brand-lockup {
         align-items: start;
       }
 
-      .channel-band img {
-        width: 56px;
-        height: 56px;
+      .brand-logo {
+        width: 64px;
+        height: 64px;
       }
 
-      .section-head {
-        flex-direction: column;
-        align-items: start;
+      .brand-panel,
+      .hero-panel,
+      .panel {
+        padding: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#">
-        <div class="brand-mark">
-          <img src="https://yt3.ggpht.com/veDA1FfRTsN5P5U97lgW9TRP4u0FnGRQIphD1DQs5TRvoHqZHU4xizu0UxIx5GMdnvKa8mkxQzw=s200-c-k-c0x00ffffff-no-rj" alt="HB Statistics logo">
+  <main class="page">
+    <section class="masthead">
+      <aside class="brand-panel">
+        <div class="brand-lockup">
+          <div class="brand-logo">
+            <img src="https://yt3.ggpht.com/veDA1FfRTsN5P5U97lgW9TRP4u0FnGRQIphD1DQs5TRvoHqZHU4xizu0UxIx5GMdnvKa8mkxQzw=s200-c-k-c0x00ffffff-no-rj" alt="HB Statistics logo">
+          </div>
+          <div class="brand-text">
+            <strong>HB Statistics</strong>
+            <span>Live numbers, latest upload, and the HB channel network.</span>
+          </div>
         </div>
-        <div class="brand-copy">
-          <strong>HB Statistics</strong>
-          <span>Latest videos and live counters</span>
+
+        <p class="brand-note"><strong>Disclaimer:</strong> This is the official HB Statistics website for the HB Statistics YouTube channel.</p>
+
+        <div class="brand-links">
+          <a class="pill primary" id="watchLatestButton" href="https://www.youtube.com/channel/UCiRU8yhg2-WAcOK_QdlahRw" target="_blank" rel="noreferrer">Watch latest video</a>
+          <a class="pill" href="#our-channels">Our channels</a>
         </div>
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#latest">Videos</a>
-        <a href="#snapshot">Latest</a>
-        <a href="#channel">Stats</a>
-        <a href="https://www.youtube.com/channel/UCiRU8yhg2-WAcOK_QdlahRw" target="_blank" rel="noreferrer">YouTube</a>
-      </nav>
-    </div>
-  </header>
+      </aside>
 
-  <main class="shell">
-    <p class="notice"><strong>Disclaimer:</strong> This is the official HB Statistics website for the HB Statistics YouTube channel.</p>
-
-    <section class="feature-strip" aria-label="Featured uploads">
-      <a class="feature-item" id="featureLinkA" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer"><img id="featureThumbA" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Featured thumbnail"></a>
-      <a class="feature-item" id="featureLinkB" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer"><img id="featureThumbB" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Featured thumbnail"></a>
-      <a class="feature-item" id="featureLinkC" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer"><img id="featureThumbC" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Featured thumbnail"></a>
-      <a class="feature-item" id="featureLinkD" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer"><img id="featureThumbD" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Featured thumbnail"></a>
-    </section>
-
-    <section class="hero" id="latest">
-      <article class="panel intro">
-        <div>
-          <h1>Latest upload, live numbers.</h1>
+      <section class="hero-panel" id="latest">
+        <div class="hero-copy">
+          <span class="eyebrow">Live feature</span>
+          <h1>Latest upload, latest numbers.</h1>
           <p class="lede">
-            This page tracks the newest upload from HB Statistics and pulls live video metrics,
-            alongside current channel totals.
+            This page tracks the newest upload from HB Statistics, keeps the counters moving,
+            and surfaces the wider HB Statistics channel network in one place.
           </p>
 
-          <div class="channel-band">
+          <div class="channel-chip">
             <img
               id="channelAvatar"
               src="https://yt3.ggpht.com/veDA1FfRTsN5P5U97lgW9TRP4u0FnGRQIphD1DQs5TRvoHqZHU4xizu0UxIx5GMdnvKa8mkxQzw=s200-c-k-c0x00ffffff-no-rj"
               alt="HB Statistics avatar"
             >
-            <div class="channel-meta">
+            <div>
               <strong id="channelName">HB Statistics</strong>
               <span id="channelId">UCiRU8yhg2-WAcOK_QdlahRw</span>
               <span id="refreshStatus">Loading channel and video data...</span>
@@ -540,104 +592,154 @@
           </div>
         </div>
 
-        <div class="channel-links">
-          <a class="button" id="watchLatestButton" href="https://www.youtube.com/channel/UCiRU8yhg2-WAcOK_QdlahRw" target="_blank" rel="noreferrer">
-            Watch latest video
-          </a>
+        <div class="hero-side">
+          <div class="latest-poster">
+            <img
+              id="videoThumb"
+              src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg"
+              alt="Latest HB Statistics video thumbnail"
+            >
+          </div>
+          <div class="latest-meta">
+            <span class="eyebrow">Latest video</span>
+            <h2 class="video-title" id="videoTitle">Loading latest upload...</h2>
+            <div class="video-meta" id="videoMeta">Checking the newest upload feed and live counters.</div>
+            <div class="status-line" id="videoStatus">Waiting for data.</div>
+          </div>
         </div>
-      </article>
-
-      <article class="panel latest-card">
-        <div class="thumb-wrap">
-          <img
-            id="videoThumb"
-            src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg"
-            alt="Latest HB Statistics video thumbnail"
-          >
-        </div>
-        <div class="card-body">
-          <span class="kicker">Latest video</span>
-          <h2 class="video-title" id="videoTitle">Loading latest upload...</h2>
-          <div class="video-meta" id="videoMeta">Checking the newest upload feed and live counters.</div>
-          <div class="status-line" id="videoStatus">Waiting for data.</div>
-        </div>
-      </article>
+      </section>
     </section>
 
-    <section class="content-grid">
-      <section class="panel section" id="snapshot">
-        <div class="section-head">
-          <div>
-            <h2>Latest Videos</h2>
-            <p>Live metrics for the most recent HB Statistics upload.</p>
+    <section class="layout">
+      <aside class="rail">
+        <section class="panel">
+          <div class="module-head">
+            <div>
+              <h2 class="module-title">Recent uploads</h2>
+              <p class="module-copy">The last four videos from the channel feed.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="video-frame">
-          <img id="videoThumbLarge" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Latest HB Statistics video preview">
-        </div>
+          <div class="recent-list">
+            <a class="recent-tile" id="featureLinkA" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer">
+              <img id="featureThumbA" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Recent video thumbnail">
+              <span id="featureTitleA">Latest upload</span>
+              <span class="recent-stats" id="featureStatsA">Loading stats...</span>
+            </a>
+            <a class="recent-tile" id="featureLinkB" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer">
+              <img id="featureThumbB" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Recent video thumbnail">
+              <span id="featureTitleB">Recent upload</span>
+              <span class="recent-stats" id="featureStatsB">Loading stats...</span>
+            </a>
+            <a class="recent-tile" id="featureLinkC" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer">
+              <img id="featureThumbC" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Recent video thumbnail">
+              <span id="featureTitleC">Recent upload</span>
+              <span class="recent-stats" id="featureStatsC">Loading stats...</span>
+            </a>
+            <a class="recent-tile" id="featureLinkD" href="https://www.youtube.com/watch?v=n9Wg7lA2jdI" target="_blank" rel="noreferrer">
+              <img id="featureThumbD" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Recent video thumbnail">
+              <span id="featureTitleD">Recent upload</span>
+              <span class="recent-stats" id="featureStatsD">Loading stats...</span>
+            </a>
+          </div>
+        </section>
+      </aside>
 
-        <div class="metrics">
-          <article class="metric">
-            <span class="metric-label">Views</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="viewsMetric">0</strong>
-          </article>
-          <article class="metric">
-            <span class="metric-label">API Views</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="apiViewsMetric">0</strong>
-          </article>
-          <article class="metric">
-            <span class="metric-label">Likes</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="likesMetric">0</strong>
-          </article>
-          <article class="metric">
-            <span class="metric-label">Comments</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="commentsMetric">0</strong>
-          </article>
-        </div>
+      <section class="center-stack">
+        <section class="panel feature-module" id="snapshot">
+          <div class="module-head">
+            <div>
+              <h2 class="module-title">Now playing</h2>
+              <p class="module-copy">A live snapshot of the most recent HB Statistics upload.</p>
+            </div>
+          </div>
 
-        <p class="footnote" id="fallbackNote">
-          Latest upload discovery uses the channel feed, then the page loads the video counters.
-        </p>
+          <div class="feature-canvas">
+            <div class="feature-frame">
+              <img id="videoThumbLarge" src="https://i.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg" alt="Latest HB Statistics video preview">
+            </div>
+
+            <div class="story-card">
+              <strong id="sidebarVideoTitle">Loading latest upload...</strong>
+              <span id="sidebarVideoMeta">Waiting for latest video details.</span>
+              <span id="fallbackNote" class="footnote">Latest upload discovery uses the channel feed, then the page loads the video counters.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="our-channels">
+          <div class="module-head">
+            <div>
+              <h2 class="module-title">Our channels</h2>
+              <p class="module-copy">Channel logos and current subscriber counts across the HB Statistics network.</p>
+            </div>
+          </div>
+
+          <div class="channels-grid" id="networkChannels"></div>
+        </section>
       </section>
 
-      <aside class="panel section" id="channel">
-        <div class="section-head">
-          <div>
-            <h2>Top Stats</h2>
-            <p>Current HB Statistics channel totals.</p>
+      <aside class="rail">
+        <section class="panel" id="channel">
+          <div class="module-head">
+            <div>
+              <h2 class="module-title">Video stats</h2>
+              <p class="module-copy">Live metrics for the newest upload.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="channel-stats">
-          <article class="metric">
-            <span class="metric-label">Subscribers</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="subscribersMetric">0</strong>
-          </article>
-          <article class="metric">
-            <span class="metric-label">API Subscribers</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="apiSubscribersMetric">0</strong>
-          </article>
-          <article class="metric">
-            <span class="metric-label">Total Views</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="channelViewsMetric">0</strong>
-          </article>
-          <article class="metric">
-            <span class="metric-label">Videos</span>
-            <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="videosMetric">0</strong>
-          </article>
-        </div>
-
-        <div class="sidebar-list">
-          <div class="sidebar-item">
-            <strong id="sidebarVideoTitle">Loading latest upload...</strong>
-            <span id="sidebarVideoMeta">Waiting for latest video details.</span>
+          <div class="metrics-grid">
+            <article class="metric">
+              <span class="metric-label">Views</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="viewsMetric">0</strong>
+            </article>
+            <article class="metric">
+              <span class="metric-label">API Views</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="apiViewsMetric">0</strong>
+            </article>
+            <article class="metric">
+              <span class="metric-label">Likes</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="likesMetric">0</strong>
+            </article>
+            <article class="metric">
+              <span class="metric-label">Comments</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="commentsMetric">0</strong>
+            </article>
           </div>
-          <div class="sidebar-item">
+        </section>
+
+        <section class="panel">
+          <div class="module-head">
+            <div>
+              <h2 class="module-title">Channel totals</h2>
+              <p class="module-copy">Current HB Statistics channel numbers.</p>
+            </div>
+          </div>
+
+          <div class="channel-stats">
+            <article class="metric">
+              <span class="metric-label">Subscribers</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="subscribersMetric">0</strong>
+            </article>
+            <article class="metric">
+              <span class="metric-label">API Subscribers</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="apiSubscribersMetric">0</strong>
+            </article>
+            <article class="metric">
+              <span class="metric-label">Total Views</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="channelViewsMetric">0</strong>
+            </article>
+            <article class="metric">
+              <span class="metric-label">Videos</span>
+              <strong class="metric-value odometer" data-odometer-format="(,ddd)" id="videosMetric">0</strong>
+            </article>
+          </div>
+
+          <div class="story-card" style="margin-top: 16px;">
             <strong>Channel ID</strong>
             <span id="sidebarChannelId">UCiRU8yhg2-WAcOK_QdlahRw</span>
           </div>
-        </div>
+        </section>
       </aside>
     </section>
 
@@ -653,6 +755,19 @@
       thumbnail: "https://i3.ytimg.com/vi/n9Wg7lA2jdI/hqdefault.jpg",
       source: "Fallback latest upload snapshot from April 3, 2026."
     };
+    const DEFAULT_CHANNEL_AVATAR = "https://yt3.ggpht.com/veDA1FfRTsN5P5U97lgW9TRP4u0FnGRQIphD1DQs5TRvoHqZHU4xizu0UxIx5GMdnvKa8mkxQzw=s200-c-k-c0x00ffffff-no-rj";
+    const NETWORK_CHANNELS = [
+      { name: "HB Statistics Shorts", id: "UCebak9UlraO9dyc8JRI7WZA" },
+      { name: "HB Statistics \u0939\u093f\u0928\u094d\u0926\u0940", id: "UCdiy2wB_ZaHiZogDD87eIaw" },
+      { name: "HB Statistics 2", id: "UCjDF8nEyPr_P-WJsmrjDvgQ" },
+      { name: "HB Statistics en Espa\u00f1ol", id: "UChlUfnEMKA1uGwKBIE4wyGg" },
+      { name: "HB Archives", id: "UCdKTFKGITHbr2wZCT3g0oQw" },
+      { name: "HB Statistics Brasil", id: "UCULBF61oF0hWKVjMb5uIqMQ" },
+      { name: "HB Statistics en Fran\u00e7ais", id: "UCzq1AJHSWA7RJI-2SnCQlyw" },
+      { name: "HB Statistics \u041d\u0430 \u0420\u0443\u0441\u0441\u043a\u043e\u043c" },
+      { name: "HB Statistics b\u1eb1ng ti\u1ebfng Vi\u1ec7t" },
+      { name: "HB Statistics Tamil" }
+    ];
 
     const elements = {
       apiSubscribersMetric: document.getElementById("apiSubscribersMetric"),
@@ -671,7 +786,16 @@
       featureThumbB: document.getElementById("featureThumbB"),
       featureThumbC: document.getElementById("featureThumbC"),
       featureThumbD: document.getElementById("featureThumbD"),
+      featureTitleA: document.getElementById("featureTitleA"),
+      featureTitleB: document.getElementById("featureTitleB"),
+      featureTitleC: document.getElementById("featureTitleC"),
+      featureTitleD: document.getElementById("featureTitleD"),
+      featureStatsA: document.getElementById("featureStatsA"),
+      featureStatsB: document.getElementById("featureStatsB"),
+      featureStatsC: document.getElementById("featureStatsC"),
+      featureStatsD: document.getElementById("featureStatsD"),
       likesMetric: document.getElementById("likesMetric"),
+      networkChannels: document.getElementById("networkChannels"),
       refreshStatus: document.getElementById("refreshStatus"),
       sidebarChannelId: document.getElementById("sidebarChannelId"),
       sidebarVideoMeta: document.getElementById("sidebarVideoMeta"),
@@ -699,20 +823,16 @@
       element.textContent = Number.isFinite(parsed) ? Math.round(parsed) : 0;
     }
 
-    function formatDate(value) {
-      if (!value) {
-        return "Unknown publish date";
+    function formatCompactNumber(value) {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) {
+        return null;
       }
 
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) {
-        return value;
-      }
-
-      return new Intl.DateTimeFormat("en-US", {
-        dateStyle: "long",
-        timeStyle: "short"
-      }).format(date);
+      return new Intl.NumberFormat("en-US", {
+        notation: "compact",
+        maximumFractionDigits: parsed >= 1000000 ? 1 : 0
+      }).format(parsed);
     }
 
     function getCount(data, key) {
@@ -732,13 +852,110 @@
       return response.json();
     }
 
-    async function fetchText(url) {
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) {
-        throw new Error("Request failed: " + response.status);
+    function fetchJsonp(url) {
+      return new Promise((resolve, reject) => {
+        const callbackName = "hbJsonpCallback_" + Math.random().toString(36).slice(2);
+        const script = document.createElement("script");
+        const separator = url.includes("?") ? "&" : "?";
+
+        window[callbackName] = (data) => {
+          cleanup();
+          resolve(data);
+        };
+
+        function cleanup() {
+          delete window[callbackName];
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
+
+        script.src = url + separator + "callback=" + callbackName;
+        script.onerror = () => {
+          cleanup();
+          reject(new Error("JSONP request failed"));
+        };
+
+        document.head.appendChild(script);
+      });
+    }
+
+    async function loadChannelFeed() {
+      const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + CHANNEL_ID;
+      const endpoint = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+      const data = await fetchJsonp(endpoint);
+
+      if (data?.status !== "ok" || !Array.isArray(data.items) || !data.items.length) {
+        throw new Error("Feed data missing");
       }
 
-      return response.text();
+      return data.items.map((item, index) => {
+        const videoId = item.link?.split("v=")[1]?.split("&")[0] || item.guid?.split(":").pop() || FALLBACK_VIDEO.id;
+        return {
+          id: videoId,
+          title: item.title || FALLBACK_VIDEO.title,
+          published: item.pubDate ? item.pubDate.replace(" ", "T") : FALLBACK_VIDEO.published,
+          thumbnail: item.thumbnail || item.enclosure?.thumbnail || FALLBACK_VIDEO.thumbnail,
+          source: index === 0 ? "Live channel feed" : "Recent channel feed"
+        };
+      });
+    }
+
+    function renderNetworkChannels(items) {
+      if (!elements.networkChannels) {
+        return;
+      }
+
+      elements.networkChannels.innerHTML = items.map((channel) => {
+        const avatar = channel.avatar || DEFAULT_CHANNEL_AVATAR;
+        const href = channel.id ? "https://www.youtube.com/channel/" + channel.id : "";
+        const subscriberText = channel.subscribersText || "Count unavailable";
+        const disabledClass = channel.id ? "" : " is-disabled";
+        const tagName = channel.id ? "a" : "article";
+        const openingTag = channel.id
+          ? '<a class="channel-card' + disabledClass + '" href="' + href + '" target="_blank" rel="noreferrer">'
+          : '<article class="channel-card' + disabledClass + '">';
+
+        return (
+          openingTag +
+            '<img src="' + avatar + '" alt="' + channel.name + ' logo">' +
+            '<div class="channel-card-text">' +
+              "<strong>" + channel.name + "</strong>" +
+              "<span>" + subscriberText + "</span>" +
+            "</div>" +
+          "</" + tagName + ">"
+        );
+      }).join("");
+    }
+
+    async function loadNetworkChannels() {
+      const items = await Promise.all(NETWORK_CHANNELS.map(async (channel) => {
+        if (!channel.id) {
+          return {
+            ...channel,
+            avatar: DEFAULT_CHANNEL_AVATAR,
+            subscribersText: "Count unavailable"
+          };
+        }
+
+        try {
+          const data = await fetchJson("https://backend.mixerno.space/api/youtube/estv3/" + channel.id);
+          const resolved = data?.items?.[0];
+          return {
+            ...channel,
+            avatar: resolved?.snippet?.thumbnails?.default?.url || DEFAULT_CHANNEL_AVATAR,
+            subscribersText: formatCompactNumber(resolved?.statistics?.subscriberCount) + " subscribers"
+          };
+        } catch (error) {
+          return {
+            ...channel,
+            avatar: DEFAULT_CHANNEL_AVATAR,
+            subscribersText: "Count unavailable"
+          };
+        }
+      }));
+
+      renderNetworkChannels(items);
     }
 
     async function loadChannelStats() {
@@ -761,41 +978,11 @@
     }
 
     async function discoverLatestVideo() {
-      const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + CHANNEL_ID;
-      const proxiedUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(feedUrl);
-
       try {
-        const xmlText = await fetchText(proxiedUrl);
-        const parsed = new DOMParser().parseFromString(xmlText, "application/xml");
-        const firstEntry = parsed.getElementsByTagName("entry")[0];
-        const parserError = parsed.getElementsByTagName("parsererror")[0];
-
-        if (!firstEntry || parserError) {
-          throw new Error("Feed parse failed");
-        }
-
-        const videoId =
-          firstEntry.getElementsByTagName("yt:videoId")[0]?.textContent?.trim() ||
-          firstEntry.getElementsByTagName("videoId")[0]?.textContent?.trim();
-        const title = firstEntry.getElementsByTagName("title")[0]?.textContent?.trim();
-        const published = firstEntry.getElementsByTagName("published")[0]?.textContent?.trim();
-        const thumbnail =
-          firstEntry.getElementsByTagName("media:thumbnail")[0]?.getAttribute("url") ||
-          firstEntry.getElementsByTagName("thumbnail")[0]?.getAttribute("url");
-
-        if (!videoId) {
-          throw new Error("Feed did not include a video ID");
-        }
-
+        const videos = await loadChannelFeed();
+        const firstVideo = videos[0];
         elements.fallbackNote.textContent = "Latest upload discovery uses the channel feed, then the page loads the video counters.";
-
-        return {
-          id: videoId,
-          title: title || FALLBACK_VIDEO.title,
-          published: published || FALLBACK_VIDEO.published,
-          thumbnail: thumbnail || FALLBACK_VIDEO.thumbnail,
-          source: "Live channel feed"
-        };
+        return firstVideo || FALLBACK_VIDEO;
       } catch (error) {
         elements.fallbackNote.textContent =
           "The live channel feed was unavailable, so the page fell back to the latest known upload snapshot from April 3, 2026.";
@@ -804,39 +991,9 @@
     }
 
     async function discoverRecentVideos() {
-      const feedUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + CHANNEL_ID;
-      const proxiedUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(feedUrl);
-
       try {
-        const xmlText = await fetchText(proxiedUrl);
-        const parsed = new DOMParser().parseFromString(xmlText, "application/xml");
-        const entries = Array.from(parsed.getElementsByTagName("entry")).slice(0, 4);
-        const parserError = parsed.getElementsByTagName("parsererror")[0];
-
-        if (!entries.length || parserError) {
-          throw new Error("Feed parse failed");
-        }
-
-        return entries.map((entry, index) => {
-          const videoId =
-            entry.getElementsByTagName("yt:videoId")[0]?.textContent?.trim() ||
-            entry.getElementsByTagName("videoId")[0]?.textContent?.trim() ||
-            FALLBACK_VIDEO.id;
-          const title = entry.getElementsByTagName("title")[0]?.textContent?.trim() || FALLBACK_VIDEO.title;
-          const published = entry.getElementsByTagName("published")[0]?.textContent?.trim() || FALLBACK_VIDEO.published;
-          const thumbnail =
-            entry.getElementsByTagName("media:thumbnail")[0]?.getAttribute("url") ||
-            entry.getElementsByTagName("thumbnail")[0]?.getAttribute("url") ||
-            FALLBACK_VIDEO.thumbnail;
-
-          return {
-            id: videoId,
-            title,
-            published,
-            thumbnail,
-            source: index === 0 ? "Live channel feed" : "Recent channel feed"
-          };
-        });
+        const videos = await loadChannelFeed();
+        return videos.slice(0, 4);
       } catch (error) {
         return [FALLBACK_VIDEO, FALLBACK_VIDEO, FALLBACK_VIDEO, FALLBACK_VIDEO];
       }
@@ -844,10 +1001,10 @@
 
     function updateFeatureStrip(videos) {
       const items = [
-        { link: elements.featureLinkA, thumb: elements.featureThumbA },
-        { link: elements.featureLinkB, thumb: elements.featureThumbB },
-        { link: elements.featureLinkC, thumb: elements.featureThumbC },
-        { link: elements.featureLinkD, thumb: elements.featureThumbD }
+        { link: elements.featureLinkA, thumb: elements.featureThumbA, title: elements.featureTitleA, stats: elements.featureStatsA },
+        { link: elements.featureLinkB, thumb: elements.featureThumbB, title: elements.featureTitleB, stats: elements.featureStatsB },
+        { link: elements.featureLinkC, thumb: elements.featureThumbC, title: elements.featureTitleC, stats: elements.featureStatsC },
+        { link: elements.featureLinkD, thumb: elements.featureThumbD, title: elements.featureTitleD, stats: elements.featureStatsD }
       ];
 
       items.forEach((item, index) => {
@@ -856,13 +1013,37 @@
         item.link.title = video.title;
         item.thumb.src = video.thumbnail;
         item.thumb.alt = video.title + " thumbnail";
+        item.title.textContent = video.title;
+        item.stats.textContent = "Loading stats...";
       });
+    }
+
+    async function loadRecentVideoStats(videos) {
+      const items = [
+        { stats: elements.featureStatsA },
+        { stats: elements.featureStatsB },
+        { stats: elements.featureStatsC },
+        { stats: elements.featureStatsD }
+      ];
+
+      await Promise.all(items.map(async (item, index) => {
+        const video = videos[index] || videos[0] || FALLBACK_VIDEO;
+
+        try {
+          const videoData = await fetchJson("https://mixerno.space/api/youtube-video-counter/user/" + video.id);
+          const views = formatCompactNumber(getCount(videoData, "views"));
+          const likes = formatCompactNumber(getCount(videoData, "likes"));
+          item.stats.textContent = (views || "0") + " views • " + (likes || "0") + " likes";
+        } catch (error) {
+          item.stats.textContent = "Stats unavailable";
+        }
+      }));
     }
 
     async function loadVideoStats(video) {
       const videoData = await fetchJson("https://mixerno.space/api/youtube-video-counter/user/" + video.id);
       const resolvedTitle = getUserValue(videoData, "name") || video.title;
-      const resolvedThumb = getUserValue(videoData, "pfp") || video.thumbnail;
+      const resolvedThumb = video.thumbnail;
 
       elements.videoTitle.textContent = resolvedTitle;
       elements.videoThumb.src = resolvedThumb;
@@ -871,9 +1052,9 @@
       elements.videoThumbLarge.alt = resolvedTitle + " preview";
       elements.watchLatestButton.href = "https://www.youtube.com/watch?v=" + video.id;
       elements.videoMeta.textContent =
-        "Published " + formatDate(video.published) + " | Video ID " + video.id + " | Source: " + video.source;
+        "Video ID " + video.id + " | Source: " + video.source;
       elements.sidebarVideoTitle.textContent = resolvedTitle;
-      elements.sidebarVideoMeta.textContent = "Published " + formatDate(video.published);
+      elements.sidebarVideoMeta.textContent = "Video ID " + video.id;
       elements.videoStatus.textContent = "Live video metrics loaded.";
       setCounterValue(elements.viewsMetric, getCount(videoData, "views"));
       setCounterValue(elements.apiViewsMetric, getCount(videoData, "apiviews"));
@@ -891,8 +1072,11 @@
     async function refreshCounters() {
       try {
         elements.refreshStatus.textContent = "Refreshing data...";
-        await loadChannelStats();
-        await loadVideoStats(currentLatestVideo);
+        await Promise.all([
+          loadChannelStats(),
+          loadVideoStats(currentLatestVideo),
+          loadRecentVideoStats(recentVideos)
+        ]);
       } catch (error) {
         elements.refreshStatus.textContent = "Unable to refresh live data right now.";
         elements.videoStatus.textContent = "Reload the page in a moment.";
@@ -903,8 +1087,12 @@
       try {
         elements.refreshStatus.textContent = "Refreshing data...";
         await refreshLatestVideo();
-        await loadChannelStats();
-        await loadVideoStats(currentLatestVideo);
+        await Promise.all([
+          loadChannelStats(),
+          loadVideoStats(currentLatestVideo),
+          loadRecentVideoStats(recentVideos),
+          loadNetworkChannels()
+        ]);
       } catch (error) {
         elements.refreshStatus.textContent = "Unable to refresh live data right now.";
         elements.videoStatus.textContent = "Reload the page in a moment.";
@@ -914,7 +1102,7 @@
     refreshAll();
     window.setInterval(refreshCounters, 20000);
     window.setInterval(refreshLatestVideo, 3600000);
+    window.setInterval(loadNetworkChannels, 3600000);
   </script>
 </body>
 </html>
-
